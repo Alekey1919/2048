@@ -1,0 +1,22 @@
+.board {
+  &-row {
+    margin: 30px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 150px);
+  }
+
+  button {
+    display: block;
+    color: black;
+    font-size: 1.5rem;
+    margin: auto;
+    padding: 5px;
+    background: #8d99ae;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background: #6f7888;
+    }
+  }
+}

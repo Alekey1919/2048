@@ -1,0 +1,14 @@
+@import "../../components/board/board";
+@import "../../components/tile/tile";
+@import "../../pages/home/home";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  color: white;
+}
+
+html {
+  background-color: #2b2d42;
+}

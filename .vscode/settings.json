@@ -1,0 +1,9 @@
+{
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "compressed",
+      "savePath": "./src/styles/css"
+    }
+  ],
+  "git.ignoreLimitWarning": true
+}
