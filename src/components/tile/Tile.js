@@ -41,7 +41,7 @@ function Tile({ value }) {
 
   return (
     <div className="tile" style={style}>
-      {value}
+      {value === 0 ? null : value}
     </div>
   );
 }

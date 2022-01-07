@@ -2,8 +2,8 @@ import { actionTypes } from "../actionTypes";
 import {
   addNumber,
   operate,
-  flip,
   checkIfMoved,
+  rotateBoard,
 } from "./boardReducerFunctions";
 
 const initialState = [
@@ -15,7 +15,7 @@ const initialState = [
 
 const boardReducer = (state = initialState, action) => {
   const { type } = action;
-  const board = JSON.parse(JSON.stringify(state));
+  let board = JSON.parse(JSON.stringify(state));
   let newBoard = [];
   switch (type) {
     case actionTypes.START_GAME:
@@ -26,27 +26,39 @@ const boardReducer = (state = initialState, action) => {
 
     case actionTypes.MOVE_LEFT:
       board.forEach((row) => {
-        newBoard.push(operate(row));
+        newBoard.push(operate(row, "left"));
       });
 
       return checkIfMoved(state, newBoard);
 
     case actionTypes.MOVE_RIGHT:
-      let reversedBoard = flip(board);
-
-      reversedBoard.forEach((row) => {
-        newBoard.push(operate(row));
+      board.forEach((row) => {
+        newBoard.push(operate(row, "right"));
       });
-
-      newBoard = flip(newBoard);
 
       return checkIfMoved(state, newBoard);
 
     case actionTypes.MOVE_DOWN:
-      return console.log("Down");
+      board = rotateBoard(board);
+
+      board.forEach((row) => {
+        newBoard.push(operate(row, "right"));
+      });
+
+      newBoard = rotateBoard(newBoard);
+
+      return checkIfMoved(state, newBoard);
 
     case actionTypes.MOVE_UP:
-      return console.log("Up");
+      board = rotateBoard(board);
+
+      board.forEach((row) => {
+        newBoard.push(operate(row, "left"));
+      });
+
+      newBoard = rotateBoard(newBoard);
+
+      return checkIfMoved(state, newBoard);
 
     default:
       return state;

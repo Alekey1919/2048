@@ -23,17 +23,22 @@ export const addNumber = (state) => {
   return board;
 };
 
-export const slide = (row) => {
-  // Sliding a row to the left.
+export const slide = (row, dir) => {
+  // Sliding a row to the left or to the right depending on the direction passed.
   let arr = row.filter((val) => val);
   let missing = 4 - arr.length;
   let zeros = Array(missing).fill(0);
-  return arr.concat(zeros);
+
+  return dir === "left" ? arr.concat(zeros) : zeros.concat(arr);
 };
 
-export const combine = (row) => {
-  // Combining two numbers in case they are equal
-  for (let i = 3; i >= 1; i--) {
+export const combine = (row, dir) => {
+  // Combining two numbers in case they are equal.
+  for (
+    let i = dir === "left" ? 3 : 0;
+    dir === "left" ? i >= 1 : i <= 3;
+    dir === "left" ? i-- : i++
+  ) {
     let a = row[i];
     let b = row[i - 1];
     if (a === b) {
@@ -45,20 +50,30 @@ export const combine = (row) => {
   return row;
 };
 
-export const operate = (row) => {
+export const operate = (row, dir) => {
   // Getting the result of a movement by sliding the values, then combining if it is possible, and sliding again to place all the values in their final position.
-  row = slide(row);
-  row = combine(row);
-  row = slide(row);
+  // The direction is used to determine in which direction the slide and combine functions must operate the row.
+  row = slide(row, dir);
+  row = combine(row, dir);
+  row = slide(row, dir);
+
   return row;
 };
 
-export const flip = (board) => {
-  // Since the slide function slides the board to the left, this function takes care of flipping the board in order to perform a right move.
+export const rotateBoard = (board) => {
+  // Since the values in vertical moves are in separated arrays, the board is rotated so that the slide and combine functions can operate on them.
+  let rotatedBoard = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ];
   for (let i = 0; i < 4; i++) {
-    board[i].reverse();
+    for (let j = 0; j < 4; j++) {
+      rotatedBoard[i][j] = board[j][i];
+    }
   }
-  return board;
+  return rotatedBoard;
 };
 
 export const checkIfMoved = (old, updated) => {
