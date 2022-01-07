@@ -1,15 +1,31 @@
 import { actionTypes } from "./actionTypes";
 
-export const addNumber = () => {
-  return {
-    type: actionTypes.ADD_NUMBER,
-    payload: 10,
-  };
-};
-
 export const startGame = () => {
   return {
     type: actionTypes.START_GAME,
-    payload: null,
+  };
+};
+
+export const moveDown = () => {
+  return {
+    type: actionTypes.MOVE_DOWN,
+  };
+};
+
+export const moveUp = () => {
+  return {
+    type: actionTypes.MOVE_UP,
+  };
+};
+
+export const moveRight = () => {
+  return {
+    type: actionTypes.MOVE_RIGHT,
+  };
+};
+
+export const moveLeft = () => {
+  return {
+    type: actionTypes.MOVE_LEFT,
   };
 };
