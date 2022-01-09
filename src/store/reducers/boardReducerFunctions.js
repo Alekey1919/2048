@@ -74,23 +74,32 @@ export const rotateBoard = (board) => {
   return rotatedBoard;
 };
 
-export const checkGameOver = (board) => {
+export const checkGameStatus = (board) => {
+  let gameStatus = {
+    hasLost: true,
+    hasWon: false,
+  };
+
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
       // Checking if there are zeros
-      if (board[i][j] === 0) {
-        return false;
-      }
-      // Checking if there are equal tiles next to eachother
-      if (i !== 3 && board[i][j] === board[i + 1][j]) {
-        return false;
-      }
-      if (j !== 3 && board[i][j] === board[i][j + 1]) {
-        return false;
+      if (board[i][j] === 2048) {
+        gameStatus.hasLost = false;
+        gameStatus.hasWon = true;
+      } else if (board[i][j] === 0) {
+        gameStatus.hasLost = false;
+      } else if (
+        // Checking if there are equal tiles next to eachother
+        i !== 3 &&
+        board[i][j] === board[i + 1][j]
+      ) {
+        gameStatus.hasLost = false;
+      } else if (j !== 3 && board[i][j] === board[i][j + 1]) {
+        gameStatus.hasLost = false;
       }
     }
   }
-  return true;
+  return gameStatus;
 };
 
 export const checkIfMoved = (old, updated) => {

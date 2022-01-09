@@ -3,42 +3,59 @@ import {
   addNumber,
   operate,
   checkIfMoved,
-  checkGameOver,
+  checkGameStatus,
   rotateBoard,
 } from "./boardReducerFunctions";
 
-const initialState = [
-  [0, 0, 0, 0],
-  [0, 0, 0, 0],
-  [0, 0, 0, 0],
-  [0, 0, 0, 0],
-];
+const initialState = {
+  board: [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+  gameStatus: { hasLost: false, hasWon: false },
+};
 
 const boardReducer = (state = initialState, action) => {
   const { type } = action;
-  let board = JSON.parse(JSON.stringify(state));
+  let board = JSON.parse(JSON.stringify(state.board));
   let newBoard = [];
   switch (type) {
     case actionTypes.START_GAME:
-      let initialBoard = JSON.parse(JSON.stringify(initialState));
+      let initialBoard = JSON.parse(JSON.stringify(initialState.board));
       initialBoard = addNumber(initialBoard);
       initialBoard = addNumber(initialBoard);
 
-      return initialBoard;
+      return {
+        ...state,
+        board: initialBoard,
+        gameStatus: initialState.gameStatus,
+      };
 
     case actionTypes.MOVE_LEFT:
       board.forEach((row) => {
         newBoard.push(operate(row, "left"));
       });
 
-      return checkIfMoved(state, newBoard);
+      newBoard = checkIfMoved(state, newBoard);
+
+      return {
+        ...state,
+        board: newBoard,
+      };
 
     case actionTypes.MOVE_RIGHT:
       board.forEach((row) => {
         newBoard.push(operate(row, "right"));
       });
 
-      return checkIfMoved(state, newBoard);
+      newBoard = checkIfMoved(state, newBoard);
+
+      return {
+        ...state,
+        board: newBoard,
+      };
 
     case actionTypes.MOVE_DOWN:
       board = rotateBoard(board);
@@ -49,7 +66,12 @@ const boardReducer = (state = initialState, action) => {
 
       newBoard = rotateBoard(newBoard);
 
-      return checkIfMoved(state, newBoard);
+      newBoard = checkIfMoved(state, newBoard);
+
+      return {
+        ...state,
+        board: newBoard,
+      };
 
     case actionTypes.MOVE_UP:
       board = rotateBoard(board);
@@ -60,11 +82,20 @@ const boardReducer = (state = initialState, action) => {
 
       newBoard = rotateBoard(newBoard);
 
-      return checkIfMoved(state, newBoard);
+      newBoard = checkIfMoved(state, newBoard);
 
-    case actionTypes.CHECK_GAME_OVER:
-      checkGameOver(board) && alert("Game Over");
-      return state;
+      return {
+        ...state,
+        board: newBoard,
+      };
+
+    case actionTypes.CHECK_GAME_STATUS:
+      let gameStatus = checkGameStatus(board);
+
+      return {
+        ...state,
+        gameStatus,
+      };
     default:
       return state;
   }

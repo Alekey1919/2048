@@ -6,7 +6,7 @@ import {
   moveLeft,
   moveRight,
   moveUp,
-  checkGameOver,
+  checkGameStatus,
 } from "../../store/actions";
 
 const useBoard = (board) => {
@@ -40,7 +40,7 @@ const useBoard = (board) => {
   }, []);
 
   useEffect(() => {
-    dispatch(checkGameOver());
+    dispatch(checkGameStatus());
   }, [board]);
 
   return { handleRestart };

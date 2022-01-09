@@ -30,8 +30,8 @@ export const moveLeft = () => {
   };
 };
 
-export const checkGameOver = () => {
+export const checkGameStatus = () => {
   return {
-    type: actionTypes.CHECK_GAME_OVER,
+    type: actionTypes.CHECK_GAME_STATUS,
   };
 };

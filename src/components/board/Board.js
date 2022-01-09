@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Tile from "../tile/Tile";
 import useBoard from "./useBoard";
 
-function Board({ board }) {
+function Board({ board, gameStatus: { hasLost, hasWon } }) {
   const { handleRestart } = useBoard(board);
 
   return (
@@ -18,13 +18,25 @@ function Board({ board }) {
         );
       })}
       <button onClick={handleRestart}>Restart</button>
+
+      {hasLost && (
+        <div className="status-message" onClick={handleRestart}>
+          Game over :(
+        </div>
+      )}
+      {hasWon && (
+        <div className="status-message" onClick={handleRestart}>
+          You won!
+        </div>
+      )}
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
   return {
-    board: state.board,
+    board: state.board.board,
+    gameStatus: state.board.gameStatus,
   };
 };
 
