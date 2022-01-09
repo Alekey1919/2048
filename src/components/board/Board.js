@@ -4,7 +4,7 @@ import Tile from "../tile/Tile";
 import useBoard from "./useBoard";
 
 function Board({ board }) {
-  const { handleRestart } = useBoard();
+  const { handleRestart } = useBoard(board);
 
   return (
     <div className="board">

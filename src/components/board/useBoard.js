@@ -6,9 +6,10 @@ import {
   moveLeft,
   moveRight,
   moveUp,
+  checkGameOver,
 } from "../../store/actions";
 
-const useBoard = () => {
+const useBoard = (board) => {
   const dispatch = useDispatch();
 
   const handleRestart = () => {
@@ -37,6 +38,10 @@ const useBoard = () => {
       handleKeyDown(e);
     });
   }, []);
+
+  useEffect(() => {
+    dispatch(checkGameOver());
+  }, [board]);
 
   return { handleRestart };
 };

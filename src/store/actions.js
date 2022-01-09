@@ -29,3 +29,9 @@ export const moveLeft = () => {
     type: actionTypes.MOVE_LEFT,
   };
 };
+
+export const checkGameOver = () => {
+  return {
+    type: actionTypes.CHECK_GAME_OVER,
+  };
+};

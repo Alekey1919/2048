@@ -1,9 +1,7 @@
 // Reducer functions
-export const addNumber = (state) => {
+export const addNumber = (board) => {
   // Adding a 2 or 4 if there is at least one empty space.
   let options = [];
-
-  const board = JSON.parse(JSON.stringify(state));
 
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
@@ -17,7 +15,7 @@ export const addNumber = (state) => {
     let spot = options[Math.floor(Math.random() * options.length)];
     board[spot.x][spot.y] = Math.random() > 0.5 ? 2 : 4;
   } else {
-    return state;
+    return board;
   }
 
   return board;
@@ -76,11 +74,28 @@ export const rotateBoard = (board) => {
   return rotatedBoard;
 };
 
+export const checkGameOver = (board) => {
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+      // Checking if there are zeros
+      if (board[i][j] === 0) {
+        return false;
+      }
+      // Checking if there are equal tiles next to eachother
+      if (i !== 3 && board[i][j] === board[i + 1][j]) {
+        return false;
+      }
+      if (j !== 3 && board[i][j] === board[i][j + 1]) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
 export const checkIfMoved = (old, updated) => {
   // Checking if there was a movement to add a new number.
-  if (JSON.stringify(old) !== JSON.stringify(updated)) {
-    return addNumber(updated);
-  } else {
-    return updated;
-  }
+  return JSON.stringify(old) !== JSON.stringify(updated)
+    ? addNumber(updated)
+    : updated;
 };

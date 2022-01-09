@@ -3,6 +3,7 @@ import {
   addNumber,
   operate,
   checkIfMoved,
+  checkGameOver,
   rotateBoard,
 } from "./boardReducerFunctions";
 
@@ -19,8 +20,9 @@ const boardReducer = (state = initialState, action) => {
   let newBoard = [];
   switch (type) {
     case actionTypes.START_GAME:
-      let oneNumber = addNumber(initialState);
-      let initialBoard = addNumber(oneNumber);
+      let initialBoard = JSON.parse(JSON.stringify(initialState));
+      initialBoard = addNumber(initialBoard);
+      initialBoard = addNumber(initialBoard);
 
       return initialBoard;
 
@@ -60,6 +62,9 @@ const boardReducer = (state = initialState, action) => {
 
       return checkIfMoved(state, newBoard);
 
+    case actionTypes.CHECK_GAME_OVER:
+      checkGameOver(board) && alert("Game Over");
+      return state;
     default:
       return state;
   }

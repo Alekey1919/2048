@@ -4,4 +4,5 @@ export const actionTypes = {
   MOVE_LEFT: "MOVE_LEFT",
   MOVE_UP: "MOVE_UP",
   MOVE_DOWN: "MOVE_DOWN",
+  CHECK_GAME_OVER: "CHECK_GAME_OVER",
 };
