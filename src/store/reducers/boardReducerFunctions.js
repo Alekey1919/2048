@@ -7,18 +7,15 @@ export const addNumber = (board) => {
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
       if (board[i][j] === 0) {
-        options.push({ x: i, y: j });
+        options.push({ x: j, y: i });
       }
     }
   }
 
   if (options.length > 0) {
     let spot = options[Math.floor(Math.random() * options.length)];
-    board[spot.x][spot.y] = Math.random() > 0.5 ? 2 : 4;
-  } else {
-    return board;
+    board[spot.y][spot.x] = Math.random() > 0.5 ? 2 : 4;
   }
-
   return board;
 };
 
@@ -28,16 +25,16 @@ export const slide = (row, dir) => {
   let missing = 4 - arr.length;
   let zeros = Array(missing).fill(0);
 
-  return dir === "left" ? arr.concat(zeros) : zeros.concat(arr);
+  return dir === "left" ? [...arr, ...zeros] : [...zeros, ...arr];
 };
 
 export const combine = (row, dir) => {
   // Combining two numbers in case they are equal and saving the new points.
   let newPoints = 0;
   for (
-    let i = dir === "left" ? 3 : 0;
-    dir === "left" ? i >= 1 : i <= 3;
-    dir === "left" ? i-- : i++
+    let i = dir === "left" ? 0 : 3;
+    dir === "left" ? i <= 3 : i >= 1;
+    dir === "left" ? i++ : i--
   ) {
     let a = row[i];
     let b = row[i - 1];
@@ -56,7 +53,7 @@ export const operate = (row, dir) => {
   // The direction is used to determine in which direction the slide and combine functions must operate the row.
   row = slide(row, dir);
   let { combinedRow, newPoints } = combine(row, dir);
-  combinedRow = slide(row, dir);
+  combinedRow = slide(combinedRow, dir);
 
   return { operatedRow: combinedRow, newPoints };
 };

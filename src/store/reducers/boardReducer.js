@@ -19,10 +19,10 @@ const initialState = {
 };
 
 const boardReducer = (state = initialState, action) => {
-  const { type, payload } = action;
+  const { type, payload: direction } = action;
   let board = JSON.parse(JSON.stringify(state.board));
-  let score = state.score;
   let newBoard = [];
+  let score = state.score;
   switch (type) {
     case actionTypes.START_GAME:
       let initialBoard = JSON.parse(JSON.stringify(initialState.board));
@@ -38,7 +38,7 @@ const boardReducer = (state = initialState, action) => {
 
     case actionTypes.HORIZONTAL_MOVE:
       board.forEach((row) => {
-        let { operatedRow, newPoints } = operate(row, payload);
+        let { operatedRow, newPoints } = operate(row, direction);
         newBoard.push(operatedRow);
         score += newPoints;
       });
@@ -55,7 +55,7 @@ const boardReducer = (state = initialState, action) => {
       board = rotateBoard(board);
 
       board.forEach((row) => {
-        let { operatedRow, newPoints } = operate(row, payload);
+        let { operatedRow, newPoints } = operate(row, direction);
         newBoard.push(operatedRow);
         score += newPoints;
       });

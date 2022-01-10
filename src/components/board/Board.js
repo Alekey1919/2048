@@ -19,16 +19,11 @@ function Board({ board, gameStatus: { hasLost, hasWon } }) {
       })}
       <button onClick={handleRestart}>Restart</button>
 
-      {hasLost && (
+      {hasLost || hasWon ? (
         <div className="status-message" onClick={handleRestart}>
-          Game over :(
+          {hasLost ? "Game over :(" : "You won!"}
         </div>
-      )}
-      {hasWon && (
-        <div className="status-message" onClick={handleRestart}>
-          You won!
-        </div>
-      )}
+      ) : null}
     </div>
   );
 }
