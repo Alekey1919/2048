@@ -1,0 +1,10 @@
+@media (max-width: 900px) {
+  .board-row {
+    grid-template-columns: repeat(4, 90px);
+  }
+
+  .tile {
+    font-size: 1rem;
+    height: 65px;
+  }
+}

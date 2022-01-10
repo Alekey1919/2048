@@ -2,11 +2,9 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   startGame,
-  moveDown,
-  moveLeft,
-  moveRight,
-  moveUp,
   checkGameStatus,
+  horizontalMove,
+  verticalMove,
 } from "../../store/actions";
 
 const useBoard = (board) => {
@@ -19,13 +17,13 @@ const useBoard = (board) => {
   const handleKeyDown = (e) => {
     let key = e.keyCode;
     if (key === 38) {
-      dispatch(moveUp());
+      dispatch(verticalMove("left"));
     } else if (key === 37) {
-      dispatch(moveLeft());
+      dispatch(horizontalMove("left"));
     } else if (key === 40) {
-      dispatch(moveDown());
+      dispatch(verticalMove("right"));
     } else if (key === 39) {
-      dispatch(moveRight());
+      dispatch(horizontalMove("right"));
     } else if (key === 46) {
       // Supr key to restart
       dispatch(startGame());

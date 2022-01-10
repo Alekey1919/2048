@@ -1,4 +1,5 @@
 // Reducer functions
+
 export const addNumber = (board) => {
   // Adding a 2 or 4 if there is at least one empty space.
   let options = [];
@@ -31,7 +32,8 @@ export const slide = (row, dir) => {
 };
 
 export const combine = (row, dir) => {
-  // Combining two numbers in case they are equal.
+  // Combining two numbers in case they are equal and saving the new points.
+  let newPoints = 0;
   for (
     let i = dir === "left" ? 3 : 0;
     dir === "left" ? i >= 1 : i <= 3;
@@ -42,20 +44,21 @@ export const combine = (row, dir) => {
     if (a === b) {
       row[i] = a + b;
       row[i - 1] = 0;
+      newPoints += row[i];
     }
   }
 
-  return row;
+  return { combinedRow: row, newPoints };
 };
 
 export const operate = (row, dir) => {
   // Getting the result of a movement by sliding the values, then combining if it is possible, and sliding again to place all the values in their final position.
   // The direction is used to determine in which direction the slide and combine functions must operate the row.
   row = slide(row, dir);
-  row = combine(row, dir);
-  row = slide(row, dir);
+  let { combinedRow, newPoints } = combine(row, dir);
+  combinedRow = slide(row, dir);
 
-  return row;
+  return { operatedRow: combinedRow, newPoints };
 };
 
 export const rotateBoard = (board) => {

@@ -6,32 +6,22 @@ export const startGame = () => {
   };
 };
 
-export const moveDown = () => {
-  return {
-    type: actionTypes.MOVE_DOWN,
-  };
-};
-
-export const moveUp = () => {
-  return {
-    type: actionTypes.MOVE_UP,
-  };
-};
-
-export const moveRight = () => {
-  return {
-    type: actionTypes.MOVE_RIGHT,
-  };
-};
-
-export const moveLeft = () => {
-  return {
-    type: actionTypes.MOVE_LEFT,
-  };
-};
-
 export const checkGameStatus = () => {
   return {
     type: actionTypes.CHECK_GAME_STATUS,
+  };
+};
+
+export const horizontalMove = (dir) => {
+  return {
+    type: actionTypes.HORIZONTAL_MOVE,
+    payload: dir,
+  };
+};
+
+export const verticalMove = (dir) => {
+  return {
+    type: actionTypes.VERTICAL_MOVE,
+    payload: dir,
   };
 };

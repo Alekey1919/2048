@@ -5,9 +5,9 @@ import reportWebVitals from "./reportWebVitals";
 import "./styles/css/styles.css";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import rootReducer from "./store/reducers/rootReducer";
+import boardReducer from "./store/reducers/boardReducer";
 
-const store = createStore(rootReducer);
+const store = createStore(boardReducer);
 
 ReactDOM.render(
   <React.StrictMode>

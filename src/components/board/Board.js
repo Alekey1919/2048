@@ -35,8 +35,8 @@ function Board({ board, gameStatus: { hasLost, hasWon } }) {
 
 const mapStateToProps = (state) => {
   return {
-    board: state.board.board,
-    gameStatus: state.board.gameStatus,
+    board: state.board,
+    gameStatus: state.gameStatus,
   };
 };
 
