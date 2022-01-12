@@ -4,7 +4,13 @@ import Tile from "../tile/Tile";
 import useBoard from "./useBoard";
 
 function Board({ board, gameStatus: { hasLost, hasWon } }) {
-  const { handleRestart } = useBoard(board);
+  const {
+    handleRestart,
+    handleMoveUp,
+    handleMoveLeft,
+    handleMoveRight,
+    handleMoveDown,
+  } = useBoard(board);
 
   return (
     <div className="board">
@@ -17,7 +23,25 @@ function Board({ board, gameStatus: { hasLost, hasWon } }) {
           </div>
         );
       })}
-      <button onClick={handleRestart}>Restart</button>
+      <button onClick={handleRestart} className="restart">
+        Restart
+      </button>
+      <div className="d-pad">
+        <button id="d-pad-up" onClick={handleMoveUp}>
+          <i className="fas fa-angle-up"></i>
+        </button>
+        <div>
+          <button id="d-pad-left" onClick={handleMoveLeft}>
+            <i className="fas fa-angle-left"></i>
+          </button>
+          <button id="d-pad-right" onClick={handleMoveRight}>
+            <i className="fas fa-angle-right"></i>
+          </button>
+        </div>
+        <button id="d-pad-down" onClick={handleMoveDown}>
+          <i className="fas fa-angle-down"></i>
+        </button>
+      </div>
 
       {hasLost || hasWon ? (
         <div className="status-message" onClick={handleRestart}>

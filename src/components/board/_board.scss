@@ -5,7 +5,7 @@
     grid-template-columns: repeat(4, 150px);
   }
 
-  button {
+  .restart {
     display: block;
     color: black;
     font-size: 1.5rem;
@@ -14,9 +14,38 @@
     background: #8d99ae;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
 
     &:hover {
       background: #6f7888;
+    }
+  }
+
+  .d-pad {
+    display: none;
+    margin-top: 30px;
+
+    button {
+      font-size: 2rem;
+      padding: 5px 15px;
+      background: none;
+      border-radius: 5px;
+    }
+
+    #d-pad-up,
+    #d-pad-down {
+      display: block;
+      margin: auto;
+    }
+
+    div {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+
+      button {
+        margin: 0 40px;
+      }
     }
   }
 

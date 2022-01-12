@@ -14,6 +14,22 @@ const useBoard = (board) => {
     dispatch(startGame());
   };
 
+  const handleMoveUp = () => {
+    dispatch(verticalMove("left"));
+  };
+
+  const handleMoveDown = () => {
+    dispatch(verticalMove("right"));
+  };
+
+  const handleMoveLeft = () => {
+    dispatch(horizontalMove("left"));
+  };
+
+  const handleMoveRight = () => {
+    dispatch(horizontalMove("right"));
+  };
+
   const UP_ARROW = 38;
   const DOWN_ARROW = 40;
   const LEFT_ARROW = 37;
@@ -23,15 +39,15 @@ const useBoard = (board) => {
   const handleKeyDown = (e) => {
     let key = e.keyCode;
     if (key === UP_ARROW) {
-      dispatch(verticalMove("left"));
+      handleMoveUp();
     } else if (key === LEFT_ARROW) {
-      dispatch(horizontalMove("left"));
+      handleMoveLeft();
     } else if (key === DOWN_ARROW) {
-      dispatch(verticalMove("right"));
+      handleMoveDown();
     } else if (key === RIGHT_ARROW) {
-      dispatch(horizontalMove("right"));
+      handleMoveRight();
     } else if (key === SUPR) {
-      dispatch(startGame());
+      handleRestart();
     }
   };
 
@@ -46,7 +62,13 @@ const useBoard = (board) => {
     dispatch(checkGameStatus());
   }, [board]);
 
-  return { handleRestart };
+  return {
+    handleRestart,
+    handleMoveUp,
+    handleMoveLeft,
+    handleMoveRight,
+    handleMoveDown,
+  };
 };
 
 export default useBoard;
